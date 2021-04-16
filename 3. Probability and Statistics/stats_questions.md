@@ -54,3 +54,6 @@ The probability of drawing a value of more than 2 would be: θ≡P(Xi>2)=1−Φ(
 Notice that we are looking at geometric distribution here, so the expected number of days would be (1/θ) = 43.95. Geometric distribution means how many trials/ failures until you get one success. In this case, success means getting a value of more than 2.
 
 
+## Q13. When do we use different statistical distribution?
+It depends. Sometimes we can use normal/ Gaussian distribution to get some quick insights. For instance, in a normal distribution, 68% of the observations fall within +/- 1 standard deviation from the mean. For binary classification problems, binomial distribution can be used as the distribution foundation. If a regression model uses least squares cost functions (for instance, linear regression), it is assumed that the residuals would have a normal distribution with a mean of zero. 
+
