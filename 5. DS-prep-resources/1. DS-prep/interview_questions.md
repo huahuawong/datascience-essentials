@@ -9,8 +9,9 @@ I guess one aspect that may make it difficult is how long should the experiment 
 ### Write a program to calculate correlation (without any libraries except for math) for two lists X and Y.
 
 Usually we'd be able to use Pearson correlation from `scipy.stats` but since we can't, we can just use the mathematical formula, which is:
+
 ![image](https://user-images.githubusercontent.com/39492524/118214063-1d268300-b43d-11eb-8b63-4cf255dfb224.png)
-`
+```
 def find_pearcorr(x, y, x_val, y_val):
   x_mean = np.mean(x)
   y_mean = np.mean(y)
@@ -18,4 +19,4 @@ def find_pearcorr(x, y, x_val, y_val):
   corr_numerator = np.sum((x_val - x_mean) * (y_val - y_mean))
   corr_denominator = np.sqrt(np.sum((x_val - x_mean) ^ 2) * np.sum((y_val - y_mean) ^ 2))\
   return corr_numerator / corr_denominator
-`  
+  ```
