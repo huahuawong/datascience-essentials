@@ -20,3 +20,17 @@ def find_pearcorr(x, y, x_val, y_val):
   corr_denominator = np.sqrt(np.sum((x_val - x_mean) ^ 2) * np.sum((y_val - y_mean) ^ 2))\
   return corr_numerator / corr_denominator
   ```
+
+### 3. This problem was asked by Lyft.
+### How many cards would you expect to draw from a standard deck before seeing the first ace?
+
+We have to look into hypergeometric distribution, which is a discrete probability distribution that describes the probability of k successes (random draws for which the object drawn has a specified feature) in n draws, without replacement, from a finite population of size {\displaystyle N}N that contains exactly K objects with that feature.
+
+Note that this is for without replacement, if there is replacement, then it would be a different case. In this case, we are looking at the following formula:
+![image](https://user-images.githubusercontent.com/39492524/118382461-e62ea980-b5c3-11eb-8092-7942316c8ed0.png)
+
+That gives us:
+
+![image](https://user-images.githubusercontent.com/39492524/118382468-f8104c80-b5c3-11eb-81ce-988f51c0b32f.png)
+
+So, the expected number of cards to get the first ace is 53/5
