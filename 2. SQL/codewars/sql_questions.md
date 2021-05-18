@@ -26,6 +26,8 @@ Answer:
 Alternatively, we can use '[[:digit:]]' or '/d' in place of '[0-9]'. 
 'g' is to make sure in case there are multiple numbers that needs to be replaced.
 
+
+
 ### 2. Given a demographics table in the following format:
 
 ** demographics table schema **
@@ -46,6 +48,8 @@ Answer:
 FROM demographics
 GROUP BY race
 ORDER BY Count(race) desc`
+
+
 
 ### 3. Given a demographics table in the following format:
 
