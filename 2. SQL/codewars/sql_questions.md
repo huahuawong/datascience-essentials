@@ -100,14 +100,14 @@ Order the result by the product_name, year, month, day columns
 We're interested only in the product-specific data, so you shouldn't return the total revenue from all sales
 
 Ans:
-`
-SELECT name as product_name,
-  extract(year from date) as year,
-  extract(month from date) as month,
-  extract(day from date) as day,
-  sum(price * count) as total
-from sales_details sd
-join sales s on sd.sale_id = s.id
-join products p on sd.product_id = p.id
-group by name, rollup(year, month, day)
-order by product_name, year, month, day`
+
+SELECT name as product_name,\
+  extract(year from date) as year,\
+  extract(month from date) as month,\
+  extract(day from date) as day,\
+  sum(price * count) as total\
+from sales_details sd\
+join sales s on sd.sale_id = s.id\
+join products p on sd.product_id = p.id\
+group by name, rollup(year, month, day)\
+order by product_name, year, month, day\
