@@ -90,3 +90,24 @@ Case should be maintained.
 Answer:
 `SELECT SUBSTRING(project, 1, commits) AS project, RIGHT(address, contributors) AS address FROM repositories;`
 
+
+### 5. Given the information about sales in a store, calculate the total revenue for each day, month, year, and product.
+
+Notes
+The sales table stores only the dates for which any data has been recorded - the information about individual sales (what was sold, and when) is stored in the sales_details table instead
+The sales_details table stores totals per product per date
+Order the result by the product_name, year, month, day columns
+We're interested only in the product-specific data, so you shouldn't return the total revenue from all sales
+
+Ans:
+`
+SELECT name as product_name,
+  extract(year from date) as year,
+  extract(month from date) as month,
+  extract(day from date) as day,
+  sum(price * count) as total
+from sales_details sd
+join sales s on sd.sale_id = s.id
+join products p on sd.product_id = p.id
+group by name, rollup(year, month, day)
+order by product_name, year, month, day`
