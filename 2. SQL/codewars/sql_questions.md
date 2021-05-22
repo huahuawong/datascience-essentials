@@ -110,15 +110,13 @@ from sales_details sd\
 join sales s on sd.sale_id = s.id\
 join products p on sd.product_id = p.id\
 group by name, rollup(year, month, day)\
-order by product_name, year, month, day\
+order by product_name, year, month, day
 
 ### 6. Description
 Given a posts table that contains a created_at timestamp column write a query that returns date (without time component), a number of posts for a given date and a running (cumulative) total number of posts up until a given date. The resulting set should be ordered chronologically by date.
 
 
 Ans: 
--- Replace with your SQL query
-
 SELECT created_at::date AS "date", COUNT(*) AS count,\
     SUM(COUNT(*)::int) OVER (ORDER BY created_at::date) AS total\
   FROM posts\
