@@ -35,3 +35,10 @@ That gives us:
 ![image](https://user-images.githubusercontent.com/39492524/118382468-f8104c80-b5c3-11eb-81ce-988f51c0b32f.png)
 
 So, the expected number of cards to get the first ace is 53/5
+
+### 4. This problem was asked by Robinhood.
+### A and B are playing a game where A has n+1 coins, B has n coins, and they each flip all of their coins. What is the probability that A will have more heads than B?
+
+We can look at it this way, since A has one extra coin, by theory, the chances of getting more tail from A is the same as getting more heads from A, since that extra coin toss could be heads or tails, with a probability of 1/2. Given that A has n+1 coins and B has n coins, A either obtains more heads than B, or more tails than B but never both.
+
+Based on this, we can conclude that the probability that A have more heads is 1/2, same as the probability that A have more tails than B.
