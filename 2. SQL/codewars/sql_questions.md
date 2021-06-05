@@ -122,3 +122,14 @@ SELECT created_at::date AS "date", COUNT(*) AS count,\
   FROM posts\
   GROUP BY created_at::date\
   ORDER BY created_at::date\
+
+### 7. The objective of this Kata is to show that you are proficient at string manipulation (and perhaps that you can use extensively subqueries).
+### You will use people table but will focus solely on the name column
+
+Ans: 
+select
+  substring(name, '^(.+)\s\S+\s\S+$') as name,\
+  substring(name, '^.+\s(\S+)\s\S+$') as first_lastname,\
+  substring(name, '^.+\s(\S+)$') as second_lastname\
+from people
+
