@@ -133,3 +133,12 @@ select
   substring(name, '^.+\s(\S+)$') as second_lastname\
 from people
 
+### 7. For this challenge you need to create a simple SELECT statement that will return all columns from the people table, and join to the sales table so that you can return the COUNT of all sales and RANK each person by their sale_count.
+
+SELECT p.id, p.name, sc.cnt AS sale_count, \
+       RANK() OVER( ORDER BY sc.cnt DESC ) AS sale_rank\
+FROM people AS p\
+JOIN (SELECT people_id, COUNT(*) AS cnt\
+      FROM sales\
+      GROUP BY people_id) sc\
+ON sc.people_id = p.id
