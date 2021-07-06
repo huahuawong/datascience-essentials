@@ -3,64 +3,32 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 # %matplotlib inline
-import seaborn as sns
 plt.style.use('ggplot')
-
-from scipy.stats import norm
-from sklearn.preprocessing import StandardScaler
-from scipy import stats
-
+import seaborn as sns
 import warnings
 warnings.filterwarnings('ignore')
 
-#for displaying 500 results in pandas dataframe
+# for displaying 500 results in pandas dataframe
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
 
-
 import re
-import gensim
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 import tensorflow as tf
-from tqdm import tqdm
-from keras.models import Sequential
-from keras.layers import Embedding,LSTM,Dense,SpatialDropout1D
-from keras.initializers import Constant
-from sklearn.model_selection import train_test_split
-from keras.optimizers import Adam
-
 import nltk
-from nltk.stem import WordNetLemmatizer,PorterStemmer
 from nltk.corpus import stopwords
+from sklearn.metrics import classification_report,confusion_matrix
 from collections import defaultdict,Counter
-from nltk.corpus import stopwords
-from sklearn.feature_extraction.text import CountVectorizer
-from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
-from PIL import Image
-from nltk.tokenize import word_tokenize
-from nltk.util import ngrams
-import string
-from sklearn.metrics import classification_report,confusion_matrix,accuracy_score
 
 nltk.download('stopwords')
 
 stop = set(stopwords.words('english'))
 plt.style.use('seaborn')
 
-from plotly import tools
 import plotly.offline as py
-import plotly.figure_factory as ff
 py.init_notebook_mode(connected=True)
-import plotly.graph_objs as go
-import textstat
-from textblob import TextBlob
-from tqdm import tqdm
-from statistics import *
-import plotly.express as px
-from plotly.subplots import make_subplots
-import plotly.graph_objects as go
 
 # Inspecting the dataset
 train = pd.read_csv("../nlp_data/Corona_NLP_train.csv",encoding='latin1')
@@ -145,6 +113,24 @@ my_pie,_,_ = plt.pie(percent_class,radius = 1.2,labels=labels,colors=colors,auto
 plt.setp(my_pie, width=0.6, edgecolor='white')
 plt.show()
 
+fig,(ax1,ax2,ax3)=plt.subplots(1,3,figsize=(15,5))
+
+tweet_len=train[train['sentiment']=="positive"]['text'].str.len()
+ax1.hist(tweet_len,color='#17C37B')
+ax1.set_title('Positive Sentiments')
+
+tweet_len=train[train['sentiment']=="negative"]['text'].str.len()
+ax2.hist(tweet_len,color='#F92969')
+ax2.set_title('Negative Sentiments')
+
+tweet_len=train[train['sentiment']=="neutral"]['text'].str.len()
+ax3.hist(tweet_len,color='#FACA0C')
+ax3.set_title('Neutral Sentiments')
+
+fig.suptitle('Characters in tweets')
+plt.show()
+# Seems like the distribution is slightly left skewed, but it's nothing crazy
+
 # Text cleaning
 # 1. Loading the stop words that will be filtered out from the text
 # 2. Clean the data by remving the urls, mentions, hashtags and digits from the text. This can be done using regex
@@ -189,7 +175,7 @@ df_train = train_df[['OriginalTweet', 'sentiment']]; df_test = test_df[['Origina
 x_train = df_train['OriginalTweet']; y_train = df_train['sentiment']
 x_test = df_test['OriginalTweet']; y_test = df_test['sentiment']
 
-max_len = np.max(x_train.apply(lambda x :len(x)))
+max_len = np.max(x_train.apply(lambda x:len(x)))
 tokenizer = Tokenizer()
 tokenizer.fit_on_texts(x_train)
 vocab_length = len(tokenizer.word_index) + 1
@@ -203,6 +189,26 @@ x_test = pad_sequences(x_test, maxlen=max_len, padding='post')
 print(f"Vocab length: {vocab_length} and the max sequence length: {max_len}")
 embedding_dim = 16
 
+
+def create_corpus(target):
+    corpus = []
+    for x in train[train['sentiment'] == target]['text'].str.split():
+        for i in x:
+            corpus.append(i)
+    return corpus
+
+
+corpus = create_corpus("positive")      # positive/ neutral/ negative
+counter = Counter(corpus)
+most = counter.most_common()
+x = []; y = []
+
+for word,count in most[:40]:
+    if word not in stop:
+        x.append(word)
+        y.append(count)
+sns.barplot(x=y, y=x)
+
 # Data modeling
 model = tf.keras.Sequential([
     tf.keras.layers.Embedding(vocab_length, embedding_dim, input_length=max_len),
@@ -210,7 +216,7 @@ model = tf.keras.Sequential([
     tf.keras.layers.GlobalAveragePooling1D(),
     tf.keras.layers.Dense(64, activation='relu'),
     tf.keras.layers.Dropout(0.4),
-    tf.keras.layers.Dense(1, activation='softmax')
+    tf.keras.layers.Dense(3, activation='softmax')   # since we have 3 output classes to be considered
 ])
 
 # opt = tf.keras.optimizers.Adam(learning_rate=0.01)
@@ -227,6 +233,9 @@ y_train = pd.DataFrame(y_train); y_test = pd.DataFrame(y_test)
 
 y_train = y_train.replace(clean_up)
 y_test = y_test.replace(clean_up)
+
+y_train = to_categorical(y_train, num_classes=3)
+y_test = to_categorical(y_test, num_classes=3)
 
 num_epochs = 10
 history = model.fit(x_train, y_train, epochs=num_epochs,
