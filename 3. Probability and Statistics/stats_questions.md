@@ -64,3 +64,6 @@ There is an ensembled method called Bootstrap Aggregation or bagging. The Bootst
 
 ### Q15. How do we determine outliers?
 In Python, we can use boxplots to identify outliers. By math concept, multiplying the interquartile range (IQR) by 1.5 will give us a way to determine whether a certain value is an outlier. If we subtract 1.5 x IQR from the first quartile, any data values that are less than this number are considered outliers. Same thing goes for the third quartile, i.e. 1.5 x IQR + third quartile.
+
+### Q16. Assuming that we have samples, x1, x2, ..... xn, how can we estimate the mean of the data?
+One way to do is to sum up the samples and then divide it by the count of samples. That would be the average mean. The other possible way is to look at the distribution, if it's a right skewed distribution, then mean > median > mode. With this in mind, we can estimate the mean. Vice versa for left skewness.
