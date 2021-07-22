@@ -1,1 +1,1 @@
-Deep learning model applications using Tensorflow.
+Deep learning model applications
