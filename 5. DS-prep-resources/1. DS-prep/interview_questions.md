@@ -43,6 +43,6 @@ We can look at it this way, since A has one extra coin, by theory, the chances o
 
 Based on this, we can conclude that the probability that A have more heads is 1/2, same as the probability that A have more tails than B.
 
-### 4. This problem was asked by Facebook.
+### 5. This problem was asked by Facebook.
 ### Let’s say that you are the first person working on the Facebook News Feed. What metrics would you track and how would you improve those metrics?
 Click through rate (CTR), Engagements (Reactions, comments, shares), the demographics of people who engaged with the news feed, reach, impressions, costs per action
