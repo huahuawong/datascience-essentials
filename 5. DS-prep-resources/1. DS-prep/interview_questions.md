@@ -46,3 +46,11 @@ Based on this, we can conclude that the probability that A have more heads is 1/
 ### 5. This problem was asked by Facebook.
 ### Let’s say that you are the first person working on the Facebook News Feed. What metrics would you track and how would you improve those metrics?
 Click through rate (CTR), Engagements (Reactions, comments, shares), the demographics of people who engaged with the news feed, reach, impressions, costs per action
+
+### 6. This problem was asked by Lyft.
+Suppose we have two random variables, X and Y, which are bivariate normal. The correlation between them is -0.2. Let A = cX + Y and B = X + cY. For what values of c are A and B independent?
+
+1. We have the correlation info, i.e. -0.2
+2. Let COV(cX + Y, X + cY) = E[(cX + Y)(X + cY)] = E[c(X^2) + c^2(XY) + XY + c(Y^2)] = E[c(X^2 + Y^2) + XY(c^2 + 1)] = -0.2
+
+Pending more work. 
