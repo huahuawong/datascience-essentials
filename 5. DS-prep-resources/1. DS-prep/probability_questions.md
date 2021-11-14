@@ -2,6 +2,6 @@
 
 1. First, we should recognize that we are looking at discrete probability, we are trying to see if x = 0, 1, 2, 3
 2. Next, we can look into probability of each x. let's say x = 1 (one match). That means there are 50 ways to choose that one match, Alice can then choose the remaining 2 from 40 choices. Bob can then choose from the other 47 choices. 
-
+3. Repeat the process for other x
 
 Full detailed solution can be found here: https://cppcodingzen.com/?p=1896
