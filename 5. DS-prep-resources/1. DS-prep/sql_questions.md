@@ -36,3 +36,27 @@ order by bucket;
 ```
 
 This will give us bucket1, 2, 3, 4 and 5 (0-10, 11-20, etc.) and shows the count of users that falls into each specific range of number of posts.
+
+
+## 2. This problem was asked by Opendoor.
+
+Assume you are given the below table on house prices from various zip codes that have been listed. Write a query to get the top 5 zip codes by market share of house prices for any zip code with at least 10000 houses.
+
+### house_listings
+column_name	type
+house_id	integer
+zip_code	integer
+price	float
+listing_date	datetime
+
+```
+WITH t1 AS(
+SELECT zip_code, COUNT(*) AS num_house FROM house_listings
+GROUP BY zip_code
+HAVING COUNT(*) > 10000)
+
+SELECT * FROM house_listings 
+WHERE zip_code IN (SELECT zip_code FROM t1)
+ORDER BY zip_code ASC
+LIMIT 5
+```
