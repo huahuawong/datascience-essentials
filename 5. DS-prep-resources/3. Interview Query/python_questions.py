@@ -31,3 +31,32 @@ def get_profit_dates(stock_prices, dts):
 
 print(get_profit_dates(stock_prices, dts))
 
+
+# Write a function that can take a string and return a list of bigrams.
+sentence = "Have free hours and love children? Drive kids to school, soccer practice and other activities."
+
+words = sentence.split(" ")
+bigram_arr = []
+
+for i in range (0, len(words) - 1):
+    bigram_arr.append((words[i], words[i+1]))
+    
+    
+# In data science, there exists the concept of stemming, which is the heuristic of chopping off the end of a word to clean and bucket it into an easier feature set. 
+# Given a dictionary consisting of many roots and a sentence, write a function replace_words to stem all the words in the sentence with the root forming it. If a word 
+# has many roots that can form it, replace it with the root with the shortest length.
+
+def stemming(roots, sentence):
+    result = []
+    sentence = sentence.split(' ')
+
+    for i,word in enumerate(sentence):
+        for root in roots:
+            if root in word:
+                #result.append(root)
+                sentence[i] = root
+                #word = None
+                break;
+        #result.append(word)
+
+    return ' '.join(sentence)
